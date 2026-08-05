@@ -1,0 +1,103 @@
+{
+  "people": [
+    { "id": "p1", "name": "Ananya Rao", "role": "Backend Lead" },
+    { "id": "p2", "name": "Dev Malhotra", "role": "Frontend Engineer" },
+    { "id": "p3", "name": "Priya Sen", "role": "Product Manager" },
+    { "id": "p4", "name": "Rohit Kapoor", "role": "DevOps Engineer" },
+    { "id": "p5", "name": "Meera Iyer", "role": "CTO" }
+  ],
+
+  "decisions": [
+    {
+      "id": "d1",
+      "title": "Switch primary DB from MongoDB to PostgreSQL",
+      "date": "2024-03-12",
+      "author": "p1",
+      "summary": "Moved from MongoDB to PostgreSQL to get strong relational integrity for billing data and reduce data-consistency bugs reported by support.",
+      "impact": "Cut billing-related data bugs by ~70% in the following quarter, but added 2 weeks of migration effort.",
+      "tags": ["database", "architecture", "billing"],
+      "linked": { "meetings": ["m1"], "commits": ["c1", "c2"], "tasks": ["t1"], "prs": ["pr1"], "docs": ["doc1"] }
+    },
+    {
+      "id": "d2",
+      "title": "Adopt JWT-based auth instead of server sessions",
+      "date": "2024-05-02",
+      "author": "p5",
+      "summary": "Chose stateless JWT auth to support the new mobile app and horizontal scaling of the API layer without sticky sessions.",
+      "impact": "Enabled multi-region deployment; required a token-refresh strategy that took an extra sprint to get right.",
+      "tags": ["auth", "security", "mobile"],
+      "linked": { "meetings": ["m2"], "commits": ["c3"], "tasks": ["t2"], "prs": ["pr2"], "docs": ["doc2"] }
+    },
+    {
+      "id": "d3",
+      "title": "Deprecate the legacy /v1 reporting API",
+      "date": "2024-08-20",
+      "author": "p3",
+      "summary": "Deprecated /v1 reporting endpoints after usage analytics showed under 3% of traffic still used them, in favor of the faster /v2 aggregation pipeline.",
+      "impact": "Reduced reporting server load by 40%; one enterprise client needed a 60-day extension.",
+      "tags": ["api", "deprecation", "reporting"],
+      "linked": { "meetings": ["m3"], "commits": ["c4"], "tasks": ["t3"], "prs": ["pr3"], "docs": ["doc3"] }
+    },
+    {
+      "id": "d4",
+      "title": "Move CI/CD from Jenkins to GitHub Actions",
+      "date": "2024-11-05",
+      "author": "p4",
+      "summary": "Migrated pipelines to GitHub Actions to cut infra maintenance overhead and get native PR-based checks.",
+      "impact": "Deploy time dropped from 18 min to 6 min; lost some custom Jenkins plugins that had to be rebuilt as Actions.",
+      "tags": ["devops", "ci/cd", "infrastructure"],
+      "linked": { "meetings": ["m4"], "commits": ["c5"], "tasks": ["t4"], "prs": ["pr4"], "docs": ["doc4"] }
+    },
+    {
+      "id": "d5",
+      "title": "Introduce feature flags for gradual rollouts",
+      "date": "2025-01-15",
+      "author": "p2",
+      "summary": "Added a feature flag system after the v3.2 release caused a checkout outage with no fast way to roll back a single feature.",
+      "impact": "Two subsequent risky releases were rolled back in minutes instead of hours.",
+      "tags": ["frontend", "release-process", "reliability"],
+      "linked": { "meetings": ["m5"], "commits": ["c6"], "tasks": ["t5"], "prs": ["pr5"], "docs": ["doc5"] }
+    }
+  ],
+
+  "meetings": [
+    { "id": "m1", "title": "DB Architecture Review", "date": "2024-03-05", "attendees": ["p1", "p5"], "notes": "Discussed data-consistency incidents in billing; agreed to prototype Postgres migration." },
+    { "id": "m2", "title": "Mobile Launch Readiness", "date": "2024-04-20", "attendees": ["p2", "p5", "p1"], "notes": "Session-based auth flagged as blocker for mobile scaling; JWT proposed." },
+    { "id": "m3", "title": "Reporting API Usage Review", "date": "2024-08-10", "attendees": ["p3", "p1"], "notes": "Analytics showed /v1 usage below deprecation threshold." },
+    { "id": "m4", "title": "Infra Cost & Speed Retro", "date": "2024-10-28", "attendees": ["p4", "p5"], "notes": "Jenkins maintenance burden discussed; GitHub Actions POC approved." },
+    { "id": "m5", "title": "Incident Postmortem: Checkout Outage", "date": "2025-01-10", "attendees": ["p2", "p3", "p5"], "notes": "Root cause: no rollback granularity. Action item: feature flag system." }
+  ],
+
+  "commits": [
+    { "id": "c1", "hash": "a1b2c3d", "message": "feat: add Postgres schema for billing module", "author": "p1", "date": "2024-03-15" },
+    { "id": "c2", "hash": "b2c3d4e", "message": "chore: migrate billing data MongoDB -> Postgres", "author": "p1", "date": "2024-03-22" },
+    { "id": "c3", "hash": "c3d4e5f", "message": "feat: JWT issuance and refresh-token middleware", "author": "p5", "date": "2024-05-10" },
+    { "id": "c4", "hash": "d4e5f6a", "message": "chore: remove /v1 reporting routes", "author": "p3", "date": "2024-08-25" },
+    { "id": "c5", "hash": "e5f6a7b", "message": "ci: replace Jenkinsfile with GitHub Actions workflows", "author": "p4", "date": "2024-11-08" },
+    { "id": "c6", "hash": "f6a7b8c", "message": "feat: integrate feature-flag SDK into checkout flow", "author": "p2", "date": "2025-01-18" }
+  ],
+
+  "prs": [
+    { "id": "pr1", "title": "Postgres billing schema + migration scripts", "author": "p1", "date": "2024-03-20", "status": "merged" },
+    { "id": "pr2", "title": "JWT auth middleware", "author": "p5", "date": "2024-05-12", "status": "merged" },
+    { "id": "pr3", "title": "Remove legacy /v1 reporting endpoints", "author": "p3", "date": "2024-08-27", "status": "merged" },
+    { "id": "pr4", "title": "GitHub Actions CI pipeline", "author": "p4", "date": "2024-11-09", "status": "merged" },
+    { "id": "pr5", "title": "Feature flag SDK integration", "author": "p2", "date": "2025-01-19", "status": "merged" }
+  ],
+
+  "tasks": [
+    { "id": "t1", "title": "MongoDB -> Postgres migration", "assignee": "p1", "status": "done", "sprint": "2024-S6" },
+    { "id": "t2", "title": "Implement JWT refresh flow", "assignee": "p5", "status": "done", "sprint": "2024-S9" },
+    { "id": "t3", "title": "Sunset /v1 reporting API", "assignee": "p3", "status": "done", "sprint": "2024-S16" },
+    { "id": "t4", "title": "Migrate pipelines to GitHub Actions", "assignee": "p4", "status": "done", "sprint": "2024-S22" },
+    { "id": "t5", "title": "Roll out feature flag system", "assignee": "p2", "status": "done", "sprint": "2025-S2" }
+  ],
+
+  "docs": [
+    { "id": "doc1", "title": "Billing Data Migration Runbook", "date": "2024-03-18" },
+    { "id": "doc2", "title": "Auth Architecture: JWT + Refresh Tokens", "date": "2024-05-08" },
+    { "id": "doc3", "title": "Reporting API v1 Deprecation Notice", "date": "2024-08-12" },
+    { "id": "doc4", "title": "CI/CD Migration Guide (Jenkins -> Actions)", "date": "2024-11-06" },
+    { "id": "doc5", "title": "Feature Flag Usage Guidelines", "date": "2025-01-16" }
+  ]
+}
