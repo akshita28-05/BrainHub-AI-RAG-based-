@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  @apply bg-ink-950 text-parchment font-body;
+  background-image:
+    radial-gradient(circle at 15% 0%, rgba(63, 169, 160, 0.08), transparent 40%),
+    radial-gradient(circle at 85% 20%, rgba(232, 163, 61, 0.06), transparent 45%);
+  background-attachment: fixed;
+}
+
+::selection {
+  background: rgba(232, 163, 61, 0.35);
+}
+
+/* Focus visibility for accessibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #E8A33D;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.memory-thread {
+  position: relative;
+}
+
+.memory-thread::before {
+  content: "";
+  position: absolute;
+  left: 15px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: linear-gradient(to bottom, rgba(232,163,61,0.6), rgba(63,169,160,0.35));
+}
+
+.node-dot {
+  box-shadow: 0 0 0 4px rgba(232, 163, 61, 0.12);
+}

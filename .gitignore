@@ -1,0 +1,9 @@
+node_modules/
+.env
+dist/
+.DS_Store
+*.log
+backend/src/data/users.json
+backend/src/data/seed.kaggle.json
+__pycache__/
+*.pyc
